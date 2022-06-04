@@ -1,0 +1,41 @@
+{
+	"manifest_version": 3,
+	"name": "Clippy",
+	"version": "1.0.0",
+	"offline_enabled": true,
+	"author": "raf_",
+	"description": "Simple browser extension to share and clip parts of any video",
+	"action": {
+		"icons": {
+			"16": "assets/icon.png",
+			"48": "assets/icon.png",
+			"128": "assets/icon.png"
+		},
+		"default_title": "Open Clippy"
+	},
+	"icons": {
+		"16": "assets/icon.png",
+		"48": "assets/icon.png",
+		"128": "assets/icon.png"
+	},
+	"background": {
+		"service_worker": "background.js",
+		"type": "module"
+	},
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"run_at": "document_end",
+			"js": ["libs/jquery.js", "libs/jquery-ui.js", "content.js"],
+			"css": ["content.css"]
+		}
+	],
+	"web_accessible_resources": [
+		{
+			"resources": ["assets/*", "content.html"],
+			"matches": ["<all_urls>"]
+		}
+	],
+	"permissions": ["downloads", "contextMenus", "executeScript", "storage"],
+	"host_permissions": ["<all_urls>"]
+}
