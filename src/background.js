@@ -1,27 +1,27 @@
 chrome.runtime.onInstalled.addListener(function () {
-	chrome.contextMenus.create({
-		id: 'selected_image',
-		title: 'Original Format Downloader',
+	var context_parent = {
+		id: 'save_image',
+		title: 'Loadit - Reddit Quick Downloader',
 		contexts: ['image'],
-		type: 'normal',
-	})
+	}
+
+	chrome.contextMenus.create(context_parent)
+
+	chrome.tabs.create({url: 'https://rafunderscore.vercel.app/loadit/'})
 })
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
-	let scr = info.srcUrl
-	let url = info.pageUrl
-	if (scr.includes('preview.redd.it')) {
-		scr = scr.replace('preview.redd.it', 'i.redd.it')
-	}
-
-	chrome.downloads.download({url: scr, filename: 'image.png'})
-	if (chrome.runtime.lastError) {
-		console.log(chrome.runtime.lastError.message)
-	} else {
-		chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-			chrome.tabs.sendMessage(tabs[0].id, {
-				action: 'toast',
+	let image_url
+	switch (info.menuItemId) {
+		case 'save_image':
+			if (info.srcUrl.indexOf('preview.redd.it') !== -1) {
+				image_url = info.srcUrl.replace('preview.redd.it', 'i.redd.it')
+			} else {
+				image_url = info.srcUrl
+			}
+			chrome.downloads.download({
+				url: image_url,
 			})
-		})
+			break
 	}
 })
