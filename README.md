@@ -26,8 +26,6 @@ Simply naviagate to an image on the reddit domain, then right click and select t
 
 If you find the app useful and want to support me, you can do so by support me on Product Hunt, giving the repo a star on Github, or by following me on twitter. The links to all can be found below:
 
-👉 [Linktree](https://linktr.ee/raf_underscore)
-
 <h1 align="center">
     ENJOY THE APP! 😄
 </h1>
